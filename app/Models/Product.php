@@ -10,6 +10,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function scopeWithScopes(Builder $builder, array $scopes = [])
     {
         return (new Scoper(request()))->apply($builder, $scopes);
@@ -18,5 +23,10 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_product');
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(Variation::class);
     }
 }

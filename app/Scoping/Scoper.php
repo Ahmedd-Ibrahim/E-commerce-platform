@@ -17,10 +17,13 @@ class Scoper
     public function apply(Builder $builder, array $scopes)
     {
         foreach ($scopes as $key => $scope) {
-            if (!$scope instanceof ScopeInterface) {
+            if (!$scope instanceof ScopeInterface || is_null($this->request->get($key))) {
                 continue;
             }
+
             $scope->apply($builder, $this->request->get($key));
         }
+
+        return $builder;
     }
 }
