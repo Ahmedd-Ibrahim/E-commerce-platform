@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Resources\Api\Product;
+namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductIndexResource extends JsonResource
+class VariationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,11 @@ class ProductIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'product_id' => $this->product_id,
+            'variation_type_id' => $this->variation_type_id,
             'name' => $this->name,
-            'slug' => $this->slug,
             'price' => $this->formated_price,
-            'description' => $this->description,
+            'order' => $this->order,
         ];
     }
 }
