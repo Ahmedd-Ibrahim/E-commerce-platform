@@ -1,8 +1,6 @@
 <?php
 namespace App\Http\Resources\Api\Product;
 
-use App\Http\Resources\Api\VariationResource;
-
 class ProductResource extends ProductIndexResource
 {
     /**
@@ -17,7 +15,7 @@ class ProductResource extends ProductIndexResource
             parent::toArray($request),
             [
                 'viration' => ProductVariationResource::collection(
-                   $this->variations->groupBy('type.name')
+                    $this->variations->groupBy('type.name')
                 )
             ]
         );

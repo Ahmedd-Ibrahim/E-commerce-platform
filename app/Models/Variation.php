@@ -28,4 +28,23 @@ class Variation extends Model
 
         return new Money($value);
     }
+
+    public function stock()
+    {
+        return $this->belongsToMany(Product::class, 'product_variation_stock_view')
+        ->withPivot([
+            'current_stock',
+            'available'
+        ]);
+    }
+
+    public function stockCount()
+    {
+        return $this->stock->sum('pivot.current_stock');
+    }
+
+    public function inStock()
+    {
+        return $this->stockCount() > 0;
+    }
 }

@@ -24,4 +24,23 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+
+    public function stock()
+    {
+        return $this->belongsToMany(Variation::class, 'product_variation_stock_view')
+        ->withPivot([
+            'current_stock',
+            'available'
+        ]);
+    }
+
+    public function stockCount()
+    {
+        return $this->stock->sum('pivot.current_stock');
+    }
 }

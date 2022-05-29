@@ -25,8 +25,8 @@ class ProductVariationResource extends JsonResource
             'name' => $this->name,
             'price' => $this->formated_price,
             'order' => $this->order,
+            'available' => $this->inStock(),
+            'stock' => $this->stockCount(),
         ];
-
-        return parent::toArray($request);
     }
 }

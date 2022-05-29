@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::withScopes($this->scopes())->get();
+        $products = Product::with(['variations', 'variations.type', 'variations.stock', 'variations.product'])
+        ->withScopes($this->scopes())->get();
 
         return ProductIndexResource::collection($products);
     }
@@ -59,6 +60,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->load('variations', 'variations.type', 'variations.stock', 'variations.product');
         return new ProductResource($product);
     }
 

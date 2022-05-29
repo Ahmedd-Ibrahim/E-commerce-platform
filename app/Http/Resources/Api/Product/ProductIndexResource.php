@@ -19,6 +19,9 @@ class ProductIndexResource extends JsonResource
             'slug' => $this->slug,
             'price' => $this->formated_price,
             'description' => $this->description,
+            'stock' => $this->stockCount(),
+            'variations' => $this->whenLoaded('variations', new ProductVariationResource($this->variations)),
+
         ];
     }
 }
