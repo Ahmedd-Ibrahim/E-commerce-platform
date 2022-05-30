@@ -1,14 +1,15 @@
 <?php
 namespace App\Models;
 
-use App\Http\Traits\CanBeScoped;
 use App\Http\Traits\HasPrice;
+use App\Http\Traits\HasStock;
+use App\Http\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, CanBeScoped, HasPrice;
+    use HasFactory, CanBeScoped, HasPrice, HasStock;
 
     public function getRouteKeyName()
     {
@@ -37,10 +38,5 @@ class Product extends Model
             'current_stock',
             'available'
         ]);
-    }
-
-    public function stockCount()
-    {
-        return $this->stock->sum('pivot.current_stock');
     }
 }
