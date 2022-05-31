@@ -15,6 +15,11 @@ class Money
         $this->money = new BaseMoney($value, new Currency('SAR'));
     }
 
+    public function amount()
+    {
+        return $this->money->getAmount();
+    }
+
     public function formated()
     {
         $formater = new IntlMoneyFormatter(new \NumberFormatter('EN_SAR', \NumberFormatter::CURRENCY), new ISOCurrencies);

@@ -38,7 +38,7 @@ Route::group([
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'cart'
 ], function () {
-    Route::post('/products', [CartController::class, 'store']);
+    Route::resource('cart', CartController::class, ['parameters' => ['cart' => 'variation']]);
+    Route::get('empty-cart', [CartController::class, 'empty']);
 });

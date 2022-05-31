@@ -21,7 +21,6 @@ class ProductIndexResource extends JsonResource
             'description' => $this->description,
             'stock' => $this->stockCount(),
             'variations' => $this->whenLoaded('variations', new ProductVariationResource($this->variations)),
-
         ];
     }
 }
