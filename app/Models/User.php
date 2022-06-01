@@ -68,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
         ->withTimestamps();
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

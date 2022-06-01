@@ -41,6 +41,34 @@ class Cart
         return $this->user->cart()->detach();
     }
 
+    public function isEmpty()
+    {
+        return $this->user->cart->sum('pivot.quantity') == 0;
+    }
+
+    public function sync()
+    {
+        $this->user->cart->each(function ($product) {
+            $quantity = $product->minStock($product->pivot->quantity);
+
+            $product->pivot->update(['quantity' => $quantity]);
+        });
+    }
+
+    public function total()
+    {
+        return $this->user->cart->sum('total');
+    }
+
+    public function subtotal()
+    {
+        $subtotal = $this->user->cart->sum(function ($product) {
+            return $product->price->amount() * $product->pivot->quantity;
+        });
+
+        return new Money($subtotal);
+    }
+
     protected function getStorePayload($products)
     {
         return collect($products)

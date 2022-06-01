@@ -30,6 +30,11 @@ class Variation extends Model
         return new Money($value);
     }
 
+    public function minStock($count)
+    {
+        return min($this->stockCount(), $count);
+    }
+
     public function stock()
     {
         return $this->belongsToMany(Product::class, 'product_variation_stock_view')

@@ -21,8 +21,19 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
-        $request->user();
-        return new CartResource($request->user());
+        $this->cart->sync();
+
+        return (new CartResource($request->user()))->additional([
+            'meta' => $this->meta()
+        ]);
+    }
+
+    private function meta()
+    {
+        return [
+            'empty' => $this->cart->isEmpty(),
+            'subtotal' => $this->cart->subtotal()->formated()
+        ];
     }
 
     public function store(StoreCartRequest $storeCartRequest)

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 
@@ -41,4 +42,5 @@ Route::group([
 ], function () {
     Route::resource('cart', CartController::class, ['parameters' => ['cart' => 'variation']]);
     Route::get('empty-cart', [CartController::class, 'empty']);
+    Route::apiResource('addresses', AddressController::class);
 });
