@@ -8,7 +8,20 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address_1', 'city', 'postal_code', 'country_id'];
+    protected $fillable = ['name', 'address_1', 'city', 'postal_code', 'country_id', 'default'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($address) {
+            if ($address->default) {
+                $address->user->addresses()->update([
+                    'default' => false
+                ]);
+            }
+        });
+    }
 
     public function user()
     {
@@ -18,5 +31,10 @@ class Address extends Model
     public function country()
     {
         return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+
+    public function setDefaultAttribute($value)
+    {
+        $this->attributes['default'] = ($value === 'true' || $value ? true : false);
     }
 }

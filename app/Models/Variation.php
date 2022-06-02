@@ -4,8 +4,9 @@ namespace App\Models;
 use App\Cart\Money;
 use App\Http\Traits\HasPrice;
 use App\Http\Traits\HasStock;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Collections\ProductVarationCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Variation extends Model
 {
@@ -42,5 +43,10 @@ class Variation extends Model
             'current_stock',
             'available'
         ]);
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new ProductVarationCollection($models);
     }
 }

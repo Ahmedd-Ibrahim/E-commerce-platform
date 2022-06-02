@@ -12,14 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('varition_order', function (Blueprint $table) {
+        Schema::create('shipping_methods', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('variation_id');
-            $table->unsignedBigInteger('order_id');
+            $table->string('name');
+            $table->integer('price');
             $table->timestamps();
-
-            $table->foreign('variation_id')->on('variations')->references('id');
-            $table->foreign('order_id')->on('orders')->references('id');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('varition_order');
+        Schema::dropIfExists('shipping_methods');
     }
 };

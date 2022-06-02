@@ -26,4 +26,15 @@ class Money
 
         return $formater->format($this->money);
     }
+
+    public function add(Money $money)
+    {
+        $this->money = $this->money->add($money->instance());
+        return $this;
+    }
+
+    public function instance()
+    {
+        return $this->money;
+    }
 }

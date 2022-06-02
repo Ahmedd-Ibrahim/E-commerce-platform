@@ -20,6 +20,7 @@ class AddressResource extends JsonResource
             'address_1' => $this->address_1,
             'city' => $this->city,
             'postal_code' => $this->postal_code,
+            'default' => $this->default
         ];
         return parent::toArray($request);
     }

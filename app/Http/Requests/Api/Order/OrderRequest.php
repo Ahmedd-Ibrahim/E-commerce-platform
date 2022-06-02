@@ -1,9 +1,10 @@
 <?php
-namespace App\Http\Requests\Api\Address;
+namespace App\Http\Requests\Api\Order;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +24,10 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'required'],
-            'address_1' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'postal_code' => ['required', 'numeric'],
-            'country_id' => ['required', 'exists:countries,id'],
-            'default' => ['sometimes', 'boolean'],
+            'shipping_method_id' => ['required', 'exists:shipping_methods,id'],
+            'address_id' => ['required',
+                Rule::exists('addresses', 'id')->where('user_id', $this->user()->id)
+            ],
         ];
     }
 }

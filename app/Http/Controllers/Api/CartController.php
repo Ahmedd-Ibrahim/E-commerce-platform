@@ -24,15 +24,16 @@ class CartController extends Controller
         $this->cart->sync();
 
         return (new CartResource($request->user()))->additional([
-            'meta' => $this->meta()
+            'meta' => $this->meta($request)
         ]);
     }
 
-    private function meta()
+    private function meta(Request $request)
     {
         return [
             'empty' => $this->cart->isEmpty(),
-            'subtotal' => $this->cart->subtotal()->formated()
+            'subtotal' => $this->cart->subtotal()->formated(),
+            'total' => $this->cart->withShipping($request->shipping_method_id)->total()->formated()
         ];
     }
 
