@@ -3,7 +3,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VariationResource extends JsonResource
+class ProductPureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,11 @@ class VariationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'variation_type_id' => $this->variation_type_id,
             'name' => $this->name,
-            'price' => $this->formated_price,
-            'order' => $this->order,
-            'product' => new ProductPureResource($this->whenLoaded('product')),
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'price' => $this->price->formated(),
+            'created_at' => $this->created_at->toDateTimeString(),
         ];
     }
 }

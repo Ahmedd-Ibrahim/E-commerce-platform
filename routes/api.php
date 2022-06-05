@@ -40,7 +40,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth:api',
 ], function () {
     Route::resource('cart', CartController::class, ['parameters' => ['cart' => 'variation']]);
     Route::get('empty-cart', [CartController::class, 'empty']);

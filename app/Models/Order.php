@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Cart\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,12 +25,22 @@ class Order extends Model
         });
     }
 
+    public function getSubTotalAttribute($value)
+    {
+        return new Money($value);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->subtotal->add($this->shippingMethod->price);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function Address()
+    public function address()
     {
         return $this->belongsTo(Address::class);
     }

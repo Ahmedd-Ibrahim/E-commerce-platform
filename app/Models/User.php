@@ -61,6 +61,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
     public function cart()
     {
         return $this->belongsToMany(Variation::class, 'user_cart')
@@ -73,13 +78,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Address::class);
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function paymentMethods()
+    {
+        return $this->hasMany(PaymentMethod::class);
     }
 }
