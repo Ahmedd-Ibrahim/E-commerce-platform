@@ -28,6 +28,7 @@ class OrderRequest extends FormRequest
             'address_id' => ['required',
                 Rule::exists('addresses', 'id')->where('user_id', $this->user()->id)
             ],
+            'payment_method_id' => ['required', 'exists:payment_methods,id']
         ];
     }
 }

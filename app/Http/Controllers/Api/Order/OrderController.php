@@ -29,7 +29,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         if ($this->cart->isEmpty()) {
-            return \response()->json(null, 400);
+            return response()->json(null, 400);
         }
 
         $order = $this->createOrder($request);
@@ -39,10 +39,10 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
-    public function createOrder(Request $request)
+    public function createOrder(OrderRequest $request)
     {
         return $request->user()->orders()->create(
-            array_merge($request->all(), [
+            array_merge($request->validated(), [
                 'subtotal' => $this->cart->subtotal()->amount()
             ])
         );

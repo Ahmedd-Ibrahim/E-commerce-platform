@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\Country\CountryController;
 use App\Http\Controllers\Api\Order\OrderController;
+use App\Http\Controllers\Api\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::group([
     Route::resource('cart', CartController::class, ['parameters' => ['cart' => 'variation']]);
     Route::get('empty-cart', [CartController::class, 'empty']);
     Route::apiResource('addresses', AddressController::class);
+    Route::apiResource('payment-methods', PaymentMethodController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('countries', CountryController::class)->only('index');
 });

@@ -13,7 +13,8 @@ class PaymentMethod extends Model
         'card_type',
         'last_four',
         'provider_id',
-        'default'
+        'default',
+        'payment_method_id'
     ];
 
     public function user()

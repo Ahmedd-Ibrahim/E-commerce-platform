@@ -11,6 +11,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "moneyphp/money": "^4.0",
+        "stripe/stripe-php": "^8.5",
         "tymon/jwt-auth": "*"
     },
     "require-dev": {

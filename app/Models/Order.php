@@ -14,7 +14,7 @@ class Order extends Model
     const PAYMENT_FAILED = 'payment_failed';
     const COMPLETED = 'completed';
 
-    protected $fillable = ['shipping_method_id', 'address_id', 'subtotal'];
+    protected $fillable = ['shipping_method_id', 'address_id', 'subtotal', 'payment_method_id'];
 
     public static function boot()
     {
@@ -55,5 +55,10 @@ class Order extends Model
         return $this->belongsToMany(Variation::class, 'varition_order')
         ->withPivot(['quantity'])
         ->withTimestamps();
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 }
