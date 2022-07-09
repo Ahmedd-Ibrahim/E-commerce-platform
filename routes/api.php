@@ -47,6 +47,7 @@ Route::group([
     Route::get('empty-cart', [CartController::class, 'empty']);
     Route::apiResource('addresses', AddressController::class);
     Route::apiResource('payment-methods', PaymentMethodController::class);
+    Route::post('payment-methods/pay', [PaymentMethodController::class, 'pay']);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('countries', CountryController::class)->only('index');
 });
