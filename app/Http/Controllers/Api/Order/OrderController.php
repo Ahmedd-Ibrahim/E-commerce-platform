@@ -2,18 +2,21 @@
 namespace App\Http\Controllers\Api\Order;
 
 use App\Cart\Cart;
+use App\Events\Order\OrderCreated;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Order\OrderRequest;
 use App\Http\Resources\Api\Order\OrderResource;
+use App\Cart\Payments\Getway;
 
 class OrderController extends Controller
 {
     protected $cart;
 
-    public function __construct(Cart $cart)
+    public function __construct(Cart $cart, Getway $getway)
     {
         $this->cart = $cart;
+        $this->getway = $getway;
     }
 
     public function index(Request $request)
@@ -34,8 +37,8 @@ class OrderController extends Controller
 
         $order = $this->createOrder($request);
         $order->products()->sync($this->cart->products()->forSyncing());
-        $this->cart->empty();
         $order->load('address', 'products', 'products.product', 'shippingMethod');
+        event(new OrderCreated($order));
         return new OrderResource($order);
     }
 

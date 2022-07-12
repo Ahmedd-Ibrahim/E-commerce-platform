@@ -47,7 +47,7 @@ class StripGetway implements Getway
         ]);
     }
 
-    protected function getCustomer()
+    public function getCustomer()
     {
         $customer = new StripGetwayCustomer($this, StripCustomer::retrieve($this->user->getway_customer_id));
 
